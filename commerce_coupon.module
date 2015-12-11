@@ -502,7 +502,7 @@ function commerce_coupon_coupon_delete_form_wrapper($coupon) {
  *   Access denied bit or void.
  */
 function commerce_coupon_remove_coupon_from_order_callback($coupon, $order) {
-  if (!isset($_GET['token']) || !drupal_valid_token($_GET['token'], 'commerce_coupon_remove_checkout:' . $coupon->coupon_id . ':' . $order->order_id) || !commerce_checkout_access($order)) {
+  if (!isset($_GET['token']) || !drupal_valid_token($_GET['token'], 'commerce_coupon_remove_checkout:' . $coupon->coupon_id . ':' . $order->order_id) || (!commerce_checkout_access($order) && !commerce_order_access('edit', $order))) {
     return MENU_ACCESS_DENIED;
   }
 
